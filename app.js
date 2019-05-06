@@ -33,7 +33,7 @@ app.use(json())
 app.use(cors())
 app.use(logs())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public',{maxAge:31536000}))
+app.use(require('koa-static')(__dirname + '/images'))
 
 app.use(views(__dirname + '/views', {
   extension: 'pug'
