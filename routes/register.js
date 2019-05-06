@@ -18,6 +18,7 @@ router.post('/register', async (ctx, next) => {
     const password = encrytoPwd(userMsg.password);
     userMsg.password = password;
     userMsg.code = uuidv4();
+    userMsg.avatarUrl = 'lion.jpg';
     const email = userMsg.email;
     const nickname = userMsg.nickname;
     const doc = new userModel(userMsg);
