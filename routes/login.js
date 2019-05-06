@@ -1,5 +1,5 @@
 const router = require('koa-router')();
-const { user } = require('../models/user');
+const { userModel } = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const fs = require('fs');
@@ -28,13 +28,13 @@ router.post('/login', async (ctx, next) => {
         const name = userMsg.name;
         const password = encrytoPwd(userMsg.password);
         // 检查用户名密码
-        const result = await manageUser.findOne({ name: name, password: password });
+        const result = await userModel.findOne({ name: name, password: password });
         if (result) {
             // 生成token
             const token = generateToken();
             try {
                 // 将新生成的token存入数据库
-                await manageUser.updateOne({ name: name },{$set: { token: token }});
+                await userModel.updateOne({ name: name },{$set: { token: token }});
                 // 登录成功，返回token
                 ctx.status = 200;
                 ctx.body = {
@@ -90,7 +90,7 @@ function encrytoPwd(pwd) {
 function createUser(name, password) {
     // 加密密码
     const encrytoPassword = encrytoPwd(password);
-    const user = new manageUser({
+    const user = new userModel({
         name: name,
         password: encrytoPassword,
     });
