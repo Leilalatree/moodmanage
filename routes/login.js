@@ -34,7 +34,7 @@ router.post('/login', async (ctx, next) => {
             const token = generateToken();
             try {
                 // 将新生成的token存入数据库
-                const user = await userModel.updateOne({ name: name },{$set: { token: token }});
+                const user = await userModel.updateOne({ name: name },{$set: { token: token }}, { new: true });
                 // 登录成功，返回token
                 ctx.status = 200;
                 ctx.body = {
@@ -70,7 +70,7 @@ router.post('/login', async (ctx, next) => {
 
 module.exports = router;
 // 读取私钥
-const priCert = fs.readFileSync('rsa_private_key.pem');
+const priCert = fs.readFileSync('./rsa_private_key.pem');
 // 生成token
 function generateToken() {
     const created = Math.floor(Date.now() / 1000) + (30 * 60);
