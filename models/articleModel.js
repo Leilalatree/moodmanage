@@ -8,6 +8,7 @@ var articleSchema = new Schema({
     introductionImgUrl:String, 
     imgUrl: String,
     detailUrl:String,
+    commit: { type: Array, default: [] }, // 界面
     status: { type: Number, default: 1 }, // 0:删除
 }, {
         timestamps: true,
