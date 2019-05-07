@@ -35,7 +35,7 @@ router.post('/login', async (ctx, next) => {
             const token = generateToken();
             try {
                 // 将新生成的token存入数据库
-                const user = await userModel.updateOne({ name: name },{$set: { token: token }}, { new: true }).exec();
+                const user = await userModel.findOneAndUpdate({ name: name },{$set: { token: token }}, { new: true }).exec();
                 // 登录成功，返回token
                 ctx.status = 200;
                 ctx.body = {
