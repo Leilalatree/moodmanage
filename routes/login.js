@@ -29,12 +29,13 @@ router.post('/login', async (ctx, next) => {
         const password = encrytoPwd(userMsg.password);
         // 检查用户名密码
         const result = await userModel.findOne({ name: name, password: password });
+        console.log(result);
         if (result) {
             // 生成token
             const token = generateToken();
             try {
                 // 将新生成的token存入数据库
-                const user = await userModel.updateOne({ name: name },{$set: { token: token }}, { new: true });
+                const user = await userModel.updateOne({ name: name },{$set: { token: token }}, { new: true }).exec();
                 // 登录成功，返回token
                 ctx.status = 200;
                 ctx.body = {

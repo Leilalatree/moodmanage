@@ -31,7 +31,7 @@ router.post('/register', async (ctx, next) => {
     } catch (error) {
       if(error.code = 11000){
         ctx.status = 400;
-        ctx.body = { error: "邮箱已存在" }
+        ctx.body = { error: {msg: "邮箱已存在"} }
       }else{
         ctx.status = 500;
         ctx.body = { error }
